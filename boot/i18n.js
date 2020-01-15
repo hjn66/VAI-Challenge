@@ -9,5 +9,5 @@ i18n.configure({
   locales: ['en', 'de'],
   defaultLocale: 'en',
   register: global,
-  directory: path.join(global.rootPath, '..', 'locals')
+  directory: path.join(global.rootPath, 'locals')
 })

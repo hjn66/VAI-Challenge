@@ -8,6 +8,7 @@ global.rootPath = __dirname
 const app = express()
 
 require('./boot/routes')(app)
+require('./boot/i18n')
 app.use(errors)
 
 const port = process.env['server.port']
