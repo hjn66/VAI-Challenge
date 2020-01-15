@@ -3,6 +3,7 @@ const cors = require('cors')
 require('express-async-errors')
 
 const complexity = require('../routes/complexity')
+const nonLexical = require('../routes/nonLexical')
 
 module.exports = async function (app) {
   // CORS Middleware
@@ -12,4 +13,5 @@ module.exports = async function (app) {
   app.use(bodyParser.json())
 
   app.use('/complexity', complexity)
+  app.use('/non-lexicals', nonLexical)
 }

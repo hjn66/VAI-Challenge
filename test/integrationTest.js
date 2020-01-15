@@ -52,4 +52,26 @@ describe('VAI Challenge Integration Test', () => {
       assert.strictEqual(result.data.data.overall_ld, (17 / 24).toFixed(2).toString())
     }).timeout(10000)
   })
+  describe('nonLexials', () => {
+    it('should call /non-lexical and add new word to nonLexicals', async () => {
+      const url = `${hostUrl}/non-lexicals/`
+      const word = 'over'
+      const data = { word }
+      const headers = {}
+      const result = await axios.post(url, data, headers)
+      assert.strictEqual(result.data.word.word, word)
+    }).timeout(10000)
+    it('should call /non-lexical and add existed word to nonLexicals and raise error', async () => {
+      const url = `${hostUrl}/non-lexicals/`
+      const word = 'over'
+      const data = { word }
+      const headers = {}
+      try {
+        await axios.post(url, data, headers)
+      } catch (error) {
+        assert.strictEqual(error.response.status, 400)
+        assert.strictEqual(error.response.data.message, 'This word already exists')
+      }
+    }).timeout(10000)
+  })
 })

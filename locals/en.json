@@ -1,3 +1,5 @@
 {
-	"text length must be less than or equal to 100 words and 1000 characters": "text length must be less than or equal to 100 words and 1000 characters"
+	"text length must be less than or equal to 100 words and 1000 characters": "text length must be less than or equal to 100 words and 1000 characters",
+	"\"word\" is required": "word is required",
+	"This word already exists": "This word already exists"
 }
