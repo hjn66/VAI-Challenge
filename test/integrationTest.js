@@ -73,5 +73,10 @@ describe('VAI Challenge Integration Test', () => {
         assert.strictEqual(error.response.data.message, 'This word already exists')
       }
     }).timeout(10000)
+    it('should get /non-lexical and return list of nonLexicals', async () => {
+      const url = `${hostUrl}/non-lexicals/`
+      const result = await axios.get(url)
+      assert.strictEqual(result.data.words.length, 36)
+    }).timeout(10000)
   })
 })
