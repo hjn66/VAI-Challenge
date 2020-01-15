@@ -1,3 +1,4 @@
+const getNonLexicals = require('../../DAO/nonLexical/getAll')
 const calcLexicalStats = require('../../utils/calcLexicalStats')
 
 const Joi = require('joi')
@@ -19,7 +20,7 @@ module.exports = async (req, resp) => {
   if (text.length > 1000 && words.length > 100) {
     throw new Error('text length must be less than or equal to 100 words and 1000 characters')
   }
-  const nonLexicals = ['to', 'got', 'is', 'have', 'and', 'although', 'or', 'that', 'when', 'while', 'a', 'either', 'more', 'much', 'neither', 'my', 'that', 'the', 'as', 'no', 'nor', 'not', 'at', 'between', 'in', 'of', 'without', 'i', 'you', 'he', 'she', 'it', 'we', 'they', 'anybody', 'one']
+  const nonLexicals = await getNonLexicals()
 
   if (req.query.mode === 'verbose') {
     // verbose Mode
