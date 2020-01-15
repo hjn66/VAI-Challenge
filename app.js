@@ -10,6 +10,7 @@ const app = express()
 require('./boot/routes')(app)
 require('./boot/database')
 require('./boot/initNonLexicals')()
+require('./boot/addAdmin')()
 require('./boot/i18n')
 app.use(errors)
 
