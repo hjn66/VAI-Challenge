@@ -1,6 +1,6 @@
 const assert = require('assert')
 
-describe('VAI Challemge', () => {
+describe('VAI Challenge Unit Test', () => {
   describe('calcLexicalStats', () => {
     it('should calculate lexical words count in sentences', async () => {
       const calcLexicalStats = require('../utils/calcLexicalStats')
