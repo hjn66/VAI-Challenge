@@ -6,8 +6,9 @@ module.exports = async (username, password) => {
   if (!user) {
     throw new Error('User Not Found')
   }
-  const isMatch = bcrypt.compare(password, user.password)
+  const isMatch = await bcrypt.compare(password, user.password)
   if (!isMatch) {
     throw new Error('Wrong Password')
   }
+  return user
 }
