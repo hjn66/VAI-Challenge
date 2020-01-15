@@ -1,0 +1,16 @@
+{
+  "name": "vai-challenge",
+  "version": "1.0.0",
+  "description": "VAI Challenge",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "VAI",
+    "Challenge",
+    "Lexical Density"
+  ],
+  "author": "Hojjat Jashnniloofar",
+  "license": "ISC"
+}
