@@ -43,7 +43,7 @@ module.exports = async (req, resp) => {
     const lexicalStat = calcLexicalStats(text, nonLexicals)
     const overallLD = (lexicalStat.lexicalCount / lexicalStat.wordsCount).toFixed(2)
     resp.send(
-      { data: { overall_ld: overallLD, words: text.length } }
+      { data: { overall_ld: overallLD } }
     )
   }
 }

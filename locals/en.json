@@ -5,5 +5,6 @@
 	"\"username\" is required": "username is required",
 	"\"password\" is required": "password is required",
 	"Wrong Password": "Wrong Password",
-	"Server error occurred": "Server error occurred"
+	"Server error occurred": "Server error occurred",
+	"User Not Found": "User Not Found"
 }

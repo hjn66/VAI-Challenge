@@ -1,9 +1,11 @@
 const assert = require('assert')
+const jwt = require('jsonwebtoken')
 const axios = require('axios')
 require('dotenv').config()
 
 describe('VAI Challenge Integration Test', () => {
   const hostUrl = 'http://localhost:' + process.env['server.port']
+  let jwtToken = ''
 
   describe('getComplexity', () => {
     it('should call /complexity and retun lexical density', async () => {
@@ -52,12 +54,50 @@ describe('VAI Challenge Integration Test', () => {
       assert.strictEqual(result.data.data.overall_ld, (17 / 24).toFixed(2).toString())
     }).timeout(10000)
   })
+  describe('login', () => {
+    it('should login with user not found', async () => {
+      const url = `${hostUrl}/users/login`
+      const username = 'USER'
+      const password = 'PASSWD'
+      const data = { username, password }
+      const headers = { }
+      try {
+        await axios.post(url, data, headers)
+      } catch (error) {
+        assert.strictEqual(error.response.status, 400)
+        assert.strictEqual(error.response.data.message, 'User Not Found')
+      }
+    }).timeout(10000)
+    it('should login with user wrong password', async () => {
+      const url = `${hostUrl}/users/login`
+      const username = process.env['admin.username']
+      const password = 'PASSWD'
+      const data = { username, password }
+      const headers = { }
+      try {
+        await axios.post(url, data, headers)
+      } catch (error) {
+        assert.strictEqual(error.response.status, 400)
+        assert.strictEqual(error.response.data.message, 'Wrong Password')
+      }
+    }).timeout(10000)
+    it('should login admin', async () => {
+      const url = `${hostUrl}/users/login`
+      const username = process.env['admin.username']
+      const password = process.env['admin.password']
+      const data = { username, password }
+      const headers = { }
+      const result = await axios.post(url, data, headers)
+      jwtToken = result.data.token
+      jwt.verify(jwtToken.substring(4), process.env['server.JWTsecret'])
+    }).timeout(10000)
+  })
   describe('nonLexials', () => {
     it('should call /non-lexical and add new word to nonLexicals', async () => {
       const url = `${hostUrl}/non-lexicals/`
       const word = 'over'
       const data = { word }
-      const headers = {}
+      const headers = { headers: { Authorization: jwtToken } }
       const result = await axios.post(url, data, headers)
       assert.strictEqual(result.data.word.word, word)
     }).timeout(10000)
@@ -65,7 +105,7 @@ describe('VAI Challenge Integration Test', () => {
       const url = `${hostUrl}/non-lexicals/`
       const word = 'over'
       const data = { word }
-      const headers = {}
+      const headers = { headers: { Authorization: jwtToken } }
       try {
         await axios.post(url, data, headers)
       } catch (error) {
@@ -75,7 +115,8 @@ describe('VAI Challenge Integration Test', () => {
     }).timeout(10000)
     it('should get /non-lexical and return list of nonLexicals', async () => {
       const url = `${hostUrl}/non-lexicals/`
-      const result = await axios.get(url)
+      const headers = { headers: { Authorization: jwtToken } }
+      const result = await axios.get(url, headers)
       assert.strictEqual(result.data.words.length, 36)
     }).timeout(10000)
   })
