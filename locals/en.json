@@ -1,5 +1,9 @@
 {
 	"text length must be less than or equal to 100 words and 1000 characters": "text length must be less than or equal to 100 words and 1000 characters",
 	"\"word\" is required": "word is required",
-	"This word already exists": "This word already exists"
+	"This word already exists": "This word already exists",
+	"\"username\" is required": "username is required",
+	"\"password\" is required": "password is required",
+	"Wrong Password": "Wrong Password",
+	"Server error occurred": "Server error occurred"
 }
