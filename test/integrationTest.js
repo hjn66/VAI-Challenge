@@ -38,5 +38,18 @@ describe('VAI Challenge Integration Test', () => {
         assert.strictEqual(error.response.data.message, 'text length must be less than or equal to 100 words and 1000 characters')
       }
     }).timeout(10000)
+    it('should call /complexity verbose mode and retun lexical density of sentences', async () => {
+      const url = `${hostUrl}/complexity/?mode=verbose`
+
+      const data = { text: 'Kim loves going to the cinema. I love To watch film in home. Text length must be less than or equal to 100 words' }
+      const headers = {}
+
+      const result = await axios.post(url, data, headers)
+      assert.strictEqual(result.data.data.sentence_ld.length, 3)
+      assert.strictEqual(result.data.data.sentence_ld[0], (4 / 6).toFixed(2).toString())
+      assert.strictEqual(result.data.data.sentence_ld[1], (4 / 7).toFixed(2).toString())
+      assert.strictEqual(result.data.data.sentence_ld[2], (9 / 11).toFixed(2).toString())
+      assert.strictEqual(result.data.data.overall_ld, (17 / 24).toFixed(2).toString())
+    }).timeout(10000)
   })
 })
